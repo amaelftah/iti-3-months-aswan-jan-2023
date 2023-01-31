@@ -1,1 +1,7 @@
-hello we are in test
+
+@foreach ($books as $book)
+    <h1>{{$book}}</h1>
+@endforeach
+
+
+{{$name}}
