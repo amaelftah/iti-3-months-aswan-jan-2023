@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class TestController extends Controller
+class PostController extends Controller
 {
-    public function test()
+    public function index()
     {
         $posts = [
             [
