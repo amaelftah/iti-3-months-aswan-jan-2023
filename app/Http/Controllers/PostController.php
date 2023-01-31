@@ -25,7 +25,7 @@ class PostController extends Controller
             ],
         ];
 
-        return view('test', [
+        return view('posts.index', [
             'posts' => $posts,
         ]);
     }
