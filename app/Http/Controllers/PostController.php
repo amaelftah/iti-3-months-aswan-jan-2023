@@ -43,4 +43,33 @@ class PostController extends Controller
 
         return view('posts.show', ['post' => $post]);
     }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
+
+    public function store(Request $request)
+    {
+        //take the form submission data
+
+//        $data = request()->all();
+//        $title = $data['title'];
+//        $description = $data['description'];
+//        $postCreator = $data['post_creator'];
+
+//        $title = request()->title;
+//        $description = request()->description;
+//        $postCreator = request()->postCreator;
+
+        $data = $request->all();
+        $title = $data['title'];
+        $description = $data['description'];
+        $postCreator = $data['post_creator'];
+
+        dd($title, $description, $postCreator);
+        //store the form submission data in database
+
+        return 'we are in store';
+    }
 }
