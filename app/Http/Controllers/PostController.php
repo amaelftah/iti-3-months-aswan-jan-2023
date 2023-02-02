@@ -2,28 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
     public function index()
     {
-        $posts = [
-            [
-                'id' => 1,
-                'title' => 'laravel',
-                'description' => 'test',
-                'posted_by' => 'Ahmed',
-                'created_at' => '2022-10-01 01:00:00',
-            ],
-            [
-                'id' => 2,
-                'title' => 'java script',
-                'description' => 'test 123',
-                'posted_by' => 'Mohamed',
-                'created_at' => '2022-09-10 02:00:00',
-            ],
-        ];
+        $posts = Post::all(); //select * from posts
+//
+//        dd($posts); //object of type Collection
+
+        //select * from posts where title ='Javascript'
+//        $javascriptPostsOnly = Post::where('title', 'Javascript')->get();
 
         return view('posts.index', [
             'posts' => $posts,
