@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -14,7 +15,10 @@ class PostController extends Controller
 //        dd($posts); //object of type Collection
 
         //select * from posts where title ='Javascript'
-//        $javascriptPostsOnly = Post::where('title', 'Javascript')->get();
+//        $javascriptPostsOnly = Post::where('title', 'Javascript')->get(); //return object of type collection
+
+        //select * from posts where title ='Javascript' limit 1;
+//        $javascriptPostsOnly = Post::where('title', 'Javascript')->first(); //return object of type App\Models\Post
 
         return view('posts.index', [
             'posts' => $posts,
@@ -24,20 +28,20 @@ class PostController extends Controller
     public function show($postId)
     {
 //        dd($postId);
-        $post = [
-            'id' => 1,
-            'title' => 'laravel',
-            'description' => 'test',
-            'posted_by' => 'Ahmed',
-            'created_at' => '2022-10-01 01:00:00',
-        ];
+        $post = Post::where('id', $postId)->first(); //select * from posts where id = 1 limit 1;
+
+        $post = Post::find($postId); //select * from posts where id = 1 limit 1;
 
         return view('posts.show', ['post' => $post]);
     }
 
     public function create()
     {
-        return view('posts.create');
+        $users = User::all();
+
+        return view('posts.create', [
+            'users' => $users,
+        ]);
     }
 
     public function store(Request $request)
@@ -56,11 +60,15 @@ class PostController extends Controller
         $data = $request->all();
         $title = $data['title'];
         $description = $data['description'];
-        $postCreator = $data['post_creator'];
+        $postCreatorId = $data['post_creator'];
 
-        dd($title, $description, $postCreator);
         //store the form submission data in database
+        Post::create([
+            'title' => $title,
+            'user_id' => $postCreatorId,
+            'description' => $description,
+        ]);
 
-        return 'we are in store';
+        return redirect()->route('posts.index');
     }
 }

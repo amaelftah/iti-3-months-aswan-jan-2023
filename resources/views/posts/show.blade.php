@@ -22,7 +22,7 @@
     </div>
 </nav>
 <div class="container">
-    we are in show {{$post['title']}}
+    we are in show {{$post->title}}
 
 
 </div>
