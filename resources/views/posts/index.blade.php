@@ -22,7 +22,7 @@
 {{--            <td>{{$post['id']}}</td>--}}
             <td>{{$post->id}}</td>
             <td>{{$post->title}}</td>
-            <td>{{$post->posted_by}}</td>
+            <td>{{$post->user?->name}}</td>
             <td>{{$post->created_at}}</td>
             <td>
                 <a href="{{route('posts.show', [$post->id])}}" class="btn btn-info">View</a>
