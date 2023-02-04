@@ -18,7 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index')->middleware('auth');
 
 Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
 
@@ -29,3 +29,15 @@ Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+use Laravel\Socialite\Facades\Socialite;
+
+Route::get('/auth/redirect', function () {
+    return Socialite::driver('github')->redirect();
+});
+
+Route::get('/auth/callback', function () {
+    $user = Socialite::driver('github')->user();
+    dd($user);
+    // $user->token
+});
